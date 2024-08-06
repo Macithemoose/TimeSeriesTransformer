@@ -84,8 +84,7 @@ def train_model(dataloaders,model,optimizer, num_epochs=100):
  
             for inputs, labels in dataloaders[phase]:
                 inputs = inputs.to(device=device, dtype=torch.float)
-                labels = labels.to(device=device, dtype=torch.int)
-                labels = labels.long()
+                labels = labels.to(device=device, dtype=torch.int64)
                 # zero the parameter gradients
                 optimizer.zero_grad()
 
