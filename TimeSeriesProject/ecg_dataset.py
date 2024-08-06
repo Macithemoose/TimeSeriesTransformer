@@ -26,7 +26,8 @@ class MyTestDataLoader():
         
         x_test = file_out_test.iloc[:,:-1].values
         y_test = file_out_test.iloc[:,-1:].astype(dtype=int).values
-        y_test = y_test.ravel()   
+        y_test = y_test.ravel()
+        y_test = y_test.long()  
  
         test_set= EcgDataset(x= x_test, y= y_test) 
         self.dataLoader= DataLoader(test_set, batch_size=self.batch_size, shuffle=True,  ) 
@@ -42,6 +43,7 @@ class myDataLoader():
         x_train = file_out_train.iloc[:,:-1].values
         y_train = file_out_train.iloc[:,-1:].astype(dtype=int).values 
         y_train = y_train.ravel()
+        y_train = y_train.long()
         x_train, x_val, y_train, y_val = train_test_split(x_train,y_train,test_size=0.15 )  
 
         train_set= EcgDataset(x= x_train, y= y_train) 
