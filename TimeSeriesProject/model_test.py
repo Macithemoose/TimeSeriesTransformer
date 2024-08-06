@@ -51,7 +51,7 @@ def test_model(model,test_loader,device):
         with torch.no_grad():
             
             inputs = inputs.to(device=device, dtype=torch.float )
-            labels = labels.to(device=device, dtype=torch.int) 
+            labels = labels.to(device=device, dtype=torch.int64) 
             pred = model(inputs) 
             
             calc_loss_and_score(pred, labels, metrics) 
@@ -61,7 +61,7 @@ batch_size = 10
 test_loader = MyTestDataLoader(batch_size=batch_size).getDataLoader()
  
 
-device = torch.device("mps")
+device = torch.device("cpu")
 sequence_len=187 # sequence length of time series
 max_len=5000 # max time series sequence length 
 n_head = 2 # number of attention head
