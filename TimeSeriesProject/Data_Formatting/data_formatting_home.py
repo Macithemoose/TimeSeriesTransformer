@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import io
 import os
 import matplotlib.pyplot as plt
@@ -32,6 +33,8 @@ for person in range(num_people_control):
     print(f'for control: an error occurred with person {person}: {e}')
 
 snip10_master = np.array(snip10_master)
+df = pd.DataFrame(snip10_master)
+df.to_csv("C:/Users/Annah/Documents/dev/maci/TimeSeriesTransformer/FASD_data/snip10_master.csv",header=False)
 print(snip10_master.shape)
 #part that won't work:
 # for person in range(num_people_fasd):
