@@ -39,4 +39,6 @@ def snipToCSV(snip):
   print(snip_master.shape)
 
 
-snipToCSV(2)
+num_snips = 70
+for snip in range(1, num_snips+1):
+  snipToCSV(snip)
