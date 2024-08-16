@@ -5,7 +5,7 @@ import copy
 from torch import nn,optim 
 from torchinfo import summary 
 from models.model.transformer import Transformer 
-from ecg_dataset import myDataLoader
+from fasd_data_loader import myDataLoader
 import numpy as np 
  
 def cross_entropy_loss(pred, target):
@@ -53,7 +53,7 @@ def print_metrics(main_metrics_train,main_metrics_val,metrics, phase):
     return result 
 
 
-def train_model(dataloaders,model,optimizer, num_epochs=100): 
+def train_model(dataloaders,model,optimizer,num_epochs=100): 
  
     best_model_wts = copy.deepcopy(model.state_dict())
     best_loss = 1e10
@@ -112,16 +112,16 @@ def train_model(dataloaders,model,optimizer, num_epochs=100):
 
 
 device = torch.device("cpu")
-sequence_len=187 # sequence length of time series
+sequence_len=1967 # sequence length of time series
 max_len=5000 # max time series sequence length 
-n_head = 2 # number of attention head
-n_layer = 1# number of encoder layer
+n_head = 8 # number of attention head
+n_layer = 6 # number of encoder layer
 drop_prob = 0.1
-d_model = 200 # number of dimension ( for positional embedding)
+d_model = 512 # number of dimension (for positional embedding)
 ffn_hidden = 128 # size of hidden layer before classification 
 feature = 1 # for univariate time series (1d), it must be adjusted for 1. 
 batch_size = 100
-model =  Transformer(  d_model=d_model, n_head=n_head, max_len=max_len, seq_len=sequence_len, ffn_hidden=ffn_hidden, n_layers=n_layer, drop_prob=drop_prob, details=False,device=device).to(device=device)
+model =  Transformer(d_model=d_model, n_head=n_head, max_len=max_len, seq_len=sequence_len, ffn_hidden=ffn_hidden, n_layers=n_layer, drop_prob=drop_prob, details=False, device=device).to(device=device)
 
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 dataloaders= myDataLoader(batch_size=batch_size).getDataLoader()
