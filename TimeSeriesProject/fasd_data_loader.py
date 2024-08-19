@@ -3,7 +3,6 @@ import pandas as pd
 import torch 
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import OneHotEncoder
-
  
 from sklearn.model_selection import train_test_split
  
@@ -51,8 +50,8 @@ class myDataLoader():
         val_set = FasdDataset(x = x_val, y = y_val) 
 
         dataloaders = {
-            'train': DataLoader(train_set, batch_size=batch_size, shuffle=True,  ),
-            'val': DataLoader(val_set, batch_size=batch_size, shuffle=True,  )
+            'train': DataLoader(train_set, batch_size=batch_size, shuffle=True),
+            'val': DataLoader(val_set, batch_size=batch_size, shuffle=True)
         }
         self.dataloaders = dataloaders
         

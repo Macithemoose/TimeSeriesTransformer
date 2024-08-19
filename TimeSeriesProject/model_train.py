@@ -11,7 +11,7 @@ import numpy as np
 def cross_entropy_loss(pred, target):
 
     criterion = nn.CrossEntropyLoss()
-    lossClass= criterion(pred, target ) 
+    lossClass= criterion(pred, target) 
 
     return lossClass
 
@@ -53,7 +53,7 @@ def print_metrics(main_metrics_train,main_metrics_val,metrics, phase):
     return result 
 
 
-def train_model(dataloaders,model,optimizer,num_epochs=100): 
+def train_model(dataloaders,model,optimizer,num_epochs=20): 
  
     best_model_wts = copy.deepcopy(model.state_dict())
     best_loss = 1e10
@@ -113,14 +113,14 @@ def train_model(dataloaders,model,optimizer,num_epochs=100):
 
 device = torch.device("cpu")
 sequence_len=1967 # sequence length of time series
-max_len=5000 # max time series sequence length 
-n_head = 8 # number of attention head
-n_layer = 6 # number of encoder layer
+max_len=3000 # max time series sequence length 
+n_head = 2 # number of attention head
+n_layer = 2 # number of encoder layer
 drop_prob = 0.1
-d_model = 512 # number of dimension (for positional embedding)
+d_model = 200 # number of dimension (for positional embedding)
 ffn_hidden = 128 # size of hidden layer before classification 
 feature = 1 # for univariate time series (1d), it must be adjusted for 1. 
-batch_size = 100
+batch_size = 64
 model =  Transformer(d_model=d_model, n_head=n_head, max_len=max_len, seq_len=sequence_len, ffn_hidden=ffn_hidden, n_layers=n_layer, drop_prob=drop_prob, details=False, device=device).to(device=device)
 
 optimizer = optim.Adam(model.parameters(), lr=0.001)

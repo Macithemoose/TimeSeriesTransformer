@@ -2,7 +2,7 @@
 from torch import nn
 
 class ClassificationHead(nn.Module):
-    def __init__(self,d_model, seq_len , details, n_classes: int = 5):
+    def __init__(self,d_model, seq_len , details, n_classes: int = 2):
       super().__init__()
       self.norm = nn.LayerNorm(d_model)
       self.details = details
