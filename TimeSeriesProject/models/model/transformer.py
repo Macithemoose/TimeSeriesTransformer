@@ -13,7 +13,7 @@ from models.model.encoder import Encoder
 
 class Transformer(nn.Module):
 
-    def __init__(self,device, d_model=100, n_head=4, max_len=5000, seq_len=200,
+    def __init__(self,device, d_model=200, n_head=4, max_len=3000, seq_len=1967,
                  ffn_hidden=128, n_layers=2, drop_prob=0.1, details =False):
         super().__init__() 
         self.device = device
@@ -31,7 +31,7 @@ class Transformer(nn.Module):
                                n_layers=n_layers,
                                details=details,
                                device=device)
-        self.classHead = ClassificationHead(seq_len=seq_len,d_model=d_model,details=details,n_classes=5)
+        self.classHead = ClassificationHead(seq_len=seq_len,d_model=d_model,details=details,n_classes=2)
 
     def forward(self, src ): 
         if self.details: print('before input layer: '+ str(src.size()) )
