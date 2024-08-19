@@ -3,20 +3,21 @@ import pandas as pd
 import torch 
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import OneHotEncoder
+import os
  
 from sklearn.model_selection import train_test_split
  
 class FasdDataset(Dataset):
-    def __init__(self,x,y)  :
+    def __init__(self, data_dir):
         super().__init__()
-        self.X = torch.tensor(x)
-        self.Y = torch.tensor(y)
+        self.data_dir = data_dir
+        self.files = os.listdir(data_dir)
+
     def __len__(self):
-        return len(self.Y)
+        return len(self.files)
     
     def __getitem__(self, index): 
-        return self.X[index].unsqueeze(1), self.Y[index] 
-    
+        return self.data, self.labels
 
 class MyTestDataLoader():
     def __init__(self, batch_size) -> None:

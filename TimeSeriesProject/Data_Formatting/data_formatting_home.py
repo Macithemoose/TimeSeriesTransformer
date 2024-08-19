@@ -27,15 +27,15 @@ for snip in range(2,num_snips+1):
         h_saccade = snip_fasd[person][0][:,0]
         h_saccade = np.append(h_saccade,fasd_label) #append a label (0 for control)
         snip_test.append(h_saccade)
-      except Exception as e:
-        print(f'for fasd: an error occurred with person {person}: {e}')
+      except Exception as e: pass
+        #print(f'for fasd: an error occurred with person {person}: {e}')
     else:
       try:
         h_saccade = snip_fasd[person][0][:,0]
         h_saccade = np.append(h_saccade,fasd_label) #append a label (0 for control)
         snip_train.append(h_saccade)
-      except Exception as e:
-        print(f'for fasd: an error occurred with person {person}: {e}')
+      except Exception as e: pass
+        #print(f'for fasd: an error occurred with person {person}: {e}')
   #handling control:
   for person in range(num_people_control):
     if person < 5 or person > (num_people_control - 5):
