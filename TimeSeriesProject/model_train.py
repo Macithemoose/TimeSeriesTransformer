@@ -120,7 +120,7 @@ drop_prob = 0.1
 d_model = 200 # number of dimension (for positional embedding)
 ffn_hidden = 128 # size of hidden layer before classification 
 feature = 1 # for univariate time series (1d), it must be adjusted for 1. 
-batch_size = 64
+batch_size = 1
 model =  Transformer(d_model=d_model, n_head=n_head, max_len=max_len, seq_len=sequence_len, ffn_hidden=ffn_hidden, n_layers=n_layer, drop_prob=drop_prob, details=False, device=device).to(device=device)
 
 optimizer = optim.Adam(model.parameters(), lr=0.001)
