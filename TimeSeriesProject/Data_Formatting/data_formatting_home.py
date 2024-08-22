@@ -54,9 +54,15 @@ for snip in range(2,num_snips+1):
         #print(f'for control: an error occurred with person {person}: {e}')
   snip_train = np.array(snip_train)
   snip_test = np.array(snip_test)
-  df = pd.DataFrame(snip_train)
-  df = pd.DataFrame(snip_test)
-  df.to_csv(f"C:/Users/Annah/Documents/dev/maci/TimeSeriesTransformer/FASD_data/train/snip{snip}_train.csv",header=False)
-  df.to_csv(f"C:/Users/Annah/Documents/dev/maci/TimeSeriesTransformer/FASD_data/test/snip{snip}_test.csv",header=False)
+
+
+  df_train = pd.DataFrame(snip_train)
+  df_test = pd.DataFrame(snip_test)
+
+  print(f"training shape for snip {snip} in df: {df_train.shape}")
+  print(f"test shape for snip {snip} in df: {df_test.shape}")
+
+  df_train.to_csv(f"C:/Users/Annah/Documents/dev/maci/TimeSeriesTransformer/FASD_data/train/snip{snip}_train.csv",header=False)
+  df_test.to_csv(f"C:/Users/Annah/Documents/dev/maci/TimeSeriesTransformer/FASD_data/test/snip{snip}_test.csv",header=False)
 
 

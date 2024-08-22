@@ -13,23 +13,29 @@ class FasdDataset(Dataset):
         self.data_dir = data_dir
         self.files = os.listdir(data_dir)
         self.train = train
+        
+        # Prepare data splits per file
+        self.file_data_splits = []
+        for file in self.files:
+            data_path = os.path.join(self.data_dir, file)
+            df = pd.read_csv(data_path)
+            data = df.iloc[:, :-1].values
+            labels = df.iloc[:, -1:].astype(dtype=int).values
+
+            # Perform train/validation split for each file
+            x_train, x_val, y_train, y_val = train_test_split(data, labels, test_size=0.15)
+
+            # Store splits
+            if self.train:
+                self.file_data_splits.append((torch.tensor(x_train, dtype=torch.float32), torch.tensor(y_train, dtype=torch.int64)))
+            else:
+                self.file_data_splits.append((torch.tensor(x_val, dtype=torch.float32), torch.tensor(y_val, dtype=torch.int64)))
 
     def __len__(self):
-        return len(self.files)
+        return len(self.file_data_splits)
     
-    def __getitem__(self, index): 
-        data_path = os.path.join(self.data_dir, self.files[index])
-        data = pd.read_csv(data_path).iloc[:,:-1].values
-        labels = pd.read_csv(data_path).iloc[:,-1:].astype(dtype=int).values
-
-        x_train, x_val, y_train, y_val = train_test_split(data, labels, test_size=0.15)
-
-        x_train = torch.tensor(x_train)
-        y_train = torch.tensor(y_train)
-        x_val = torch.tensor(x_val)
-        y_val = torch.tensor(y_val)
-    
-        return x_train, y_train if self.train else x_val, y_val
+    def __getitem__(self, index):
+        return self.file_data_splits[index]
         
 
 class MyTestDataLoader():
